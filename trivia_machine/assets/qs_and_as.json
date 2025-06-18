@@ -1,0 +1,185 @@
+{
+  "topic": "Land Mammals",
+  "questions": [
+    {
+      "question": "What is the largest land mammal on Earth?",
+      "answers": [
+        "African elephant",
+        "White rhinoceros",
+        "Hippopotamus",
+        "Giraffe"
+      ]
+    },
+    {
+      "question": "Which land mammal is known for having a pouch to carry its young?",
+      "answers": [
+        "Kangaroo",
+        "Panda",
+        "Otter",
+        "Fox"
+      ]
+    },
+    {
+      "question": "Which mammal is famous for its black and white stripes?",
+      "answers": [
+        "Zebra",
+        "Tiger",
+        "Badger",
+        "Skunk"
+      ]
+    },
+    {
+      "question": "Which mammal is known for its long neck?",
+      "answers": [
+        "Giraffe",
+        "Camel",
+        "Horse",
+        "Antelope"
+      ]
+    },
+    {
+      "question": "Which small mammal can roll into a tight ball for protection?",
+      "answers": [
+        "Hedgehog",
+        "Rabbit",
+        "Beaver",
+        "Porcupine"
+      ]
+    },
+    {
+      "question": "Which bear species is native to North America?",
+      "answers": [
+        "Grizzly bear",
+        "Sun bear",
+        "Spectacled bear",
+        "Sloth bear"
+      ]
+    },
+    {
+      "question": "Which land mammal is the fastest on Earth?",
+      "answers": [
+        "Cheetah",
+        "Lion",
+        "Greyhound",
+        "Leopard"
+      ]
+    },
+    {
+      "question": "Which mammal is known for building dams in rivers?",
+      "answers": [
+        "Beaver",
+        "Otter",
+        "Capybara",
+        "Wombat"
+      ]
+    },
+    {
+      "question": "Which mammal has a long, flexible trunk?",
+      "answers": [
+        "Elephant",
+        "Tapir",
+        "Anteater",
+        "Armadillo"
+      ]
+    },
+    {
+      "question": "Which desert-dwelling mammal has humps to store fat?",
+      "answers": [
+        "Camel",
+        "Llama",
+        "Alpaca",
+        "Donkey"
+      ]
+    },
+    {
+      "question": "Which large land mammal is often found wallowing in mud?",
+      "answers": [
+        "Hippopotamus",
+        "Elephant",
+        "Buffalo",
+        "Warthog"
+      ]
+    },
+    {
+      "question": "Which mammal is known for swinging between trees using its long arms?",
+      "answers": [
+        "Orangutan",
+        "Baboon",
+        "Gibbon",
+        "Chimpanzee"
+      ]
+    },
+    {
+      "question": "Which mammal is sometimes called a 'water horse' due to its amphibious habits?",
+      "answers": [
+        "Hippopotamus",
+        "Capybara",
+        "Otter",
+        "Beaver"
+      ]
+    },
+    {
+      "question": "Which mammal is famous for carrying its home on its back?",
+      "answers": [
+        "Armadillo",
+        "Tortoise",
+        "Snail",
+        "Hermit crab"
+      ]
+    },
+    {
+      "question": "Which carnivorous mammal is often associated with packs and howling at the moon?",
+      "answers": [
+        "Wolf",
+        "Fox",
+        "Coyote",
+        "Lynx"
+      ]
+    },
+    {
+      "question": "Which mammal uses echolocation to navigate in darkness?",
+      "answers": [
+        "Bat",
+        "Mole",
+        "Shrew",
+        "Raccoon"
+      ]
+    },
+    {
+      "question": "Which mammal is the national animal of Australia?",
+      "answers": [
+        "Red kangaroo",
+        "Koala",
+        "Platypus",
+        "Wombat"
+      ]
+    },
+    {
+      "question": "Which mammal is recognized by its large, tusk-like teeth protruding from its mouth?",
+      "answers": [
+        "Walrus",
+        "Elephant seal",
+        "Sea lion",
+        "Manatee"
+      ]
+    },
+    {
+      "question": "Which mammal is known for gliding between trees with skin flaps?",
+      "answers": [
+        "Flying squirrel",
+        "Koala",
+        "Possum",
+        "Lemur"
+      ]
+    },
+    {
+      "question": "Which large mammal has prominent white and black facial markings and eats bamboo?",
+      "answers": [
+        "Giant panda",
+        "Sloth bear",
+        "Sun bear",
+        "Polar bear"
+      ]
+    }
+  ]
+}
