@@ -2,6 +2,22 @@
 
 A lightweight FastAPI web app to host a local boardgame implementation and serve over the Wi-Fi network. 4 FUN lol.
 ---
+# TODOs:
+
+Access to webpage
+
+Get a prompt to enter your username and join the game.
+
+You're in the game.
+
+While you are in the game, every N number of seconds a new round starts.
+
+When a new round starts, a question pops up with 4 multiple choice answers.
+
+You submit your answer, and you get a scoreboard.
+
+
+[] 
 
 ## 🚀 Quick Start
 
