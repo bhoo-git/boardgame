@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Your Avatar</title>
+</head>
+<body>
+    <h2>Hello, {{ name }}! Pick your avatar:</h2>
+    <form action="/avatar/{{ name }}" method="post">
+        <div style="display: flex; gap: 20px;">
+            {% for avatar in avatars %}
+                <label>
+                    <input type="radio" name="avatar" value="{{ avatar }}" required>
+                    <img src="/static/{{ avatar }}" alt="avatar" width="80" height="80" style="border-radius: 50%; border: 2px solid #888;">
+                </label>
+            {% endfor %}
+        </div>
+        <br>
+        <button type="submit">Select Avatar</button>
+    </form>
+</body>
+</html>

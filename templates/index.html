@@ -15,7 +15,12 @@
         <h2>Players Joined:</h2>
         <ul>
             {% for p in players %}
-                <li>{{ p }}{% if p == host_name %} (Host){% endif %}</li>
+                <li>
+                    {% if players[p]["avatar"] %}
+                        <img src="/static/{{ players[p]["avatar"] }}" alt="avatar" width="32" height="32" style="vertical-align:middle; border-radius:50%;">
+                    {% endif %}
+                    {{ p }}{% if p == host_name %} (Host){% endif %}
+                </li>
             {% endfor %}
         </ul>
 
@@ -26,7 +31,11 @@
         {% endif %}
     {% else %}
         {% if name %}
-            <h2>Hello, {{ name }}{% if is_host %} (Host){% endif %}</h2>
+            <h2>Hello, {{ name }}{% if is_host %} (Host){% endif %}
+                {% if avatar %}
+                    <img src="/static/{{ avatar }}" alt="avatar" width="40" height="40" style="vertical-align:middle; border-radius:50%;">
+                {% endif %}
+            </h2>
             <p><strong>Score:</strong> {{ scores[name] if scores and name in scores else 0 }}</p>
             {% if round_active and current_question %}
                 <h3>Round {{ current_round + 1 }}</h3>

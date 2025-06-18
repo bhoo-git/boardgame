@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, Form, BackgroundTasks
+from fastapi import FastAPI, Request, Form, BackgroundTasks, UploadFile
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -7,6 +7,7 @@ import asyncio
 import time
 import json
 import os
+import glob
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -14,6 +15,7 @@ templates = Jinja2Templates(directory="templates")
 
 players = {}
 scores = {}
+host_name = None
 # Removed: locations = [ ... ]
 # Load questions from JSON file
 QUESTIONS_FILE = os.path.join(os.path.dirname(__file__), "questions.json")
@@ -74,17 +76,37 @@ async def index(request: Request):
 async def join(name: str = Form(...)):
     global host_name
     if name not in players:
-        players[name] = ""
+        players[name] = {"avatar": None}
         scores[name] = 0
         if host_name is None:
             host_name = name  # First player is host
+    else:
+        # If not host, prevent joining again with same name
+        if name != host_name:
+            return RedirectResponse(f"/player/{name}", status_code=302)
+    return RedirectResponse(f"/avatar/{name}", status_code=302)
+
+@app.get("/avatar/{name}", response_class=HTMLResponse)
+async def avatar_select(request: Request, name: str):
+    # Only non-host can pick avatar
+    is_host = (name == host_name)
+    if is_host:
+        return RedirectResponse(f"/player/{name}", status_code=302)
+    avatar_files = [f"avatars/{os.path.basename(f)}" for f in glob.glob(os.path.join("static/avatars", "*.png"))]
+    return templates.TemplateResponse("avatar_select.html", {"request": request, "name": name, "avatars": avatar_files})
+
+@app.post("/avatar/{name}", response_class=RedirectResponse)
+async def avatar_set(name: str = Form(...), avatar: str = Form(...)):
+    if name in players:
+        players[name]["avatar"] = avatar
     return RedirectResponse(f"/player/{name}", status_code=302)
 
 @app.get("/player/{name}", response_class=HTMLResponse)
 async def player_page(request: Request, name: str):
-    role = players.get(name, "Not joined")
+    role = players.get(name, {}).get("role", "Not joined") if isinstance(players.get(name), dict) else players.get(name, "Not joined")
     is_host = (name == host_name)
-    return templates.TemplateResponse("index.html", {"request": request, "name": name, "role": role, "players": players, "game_started": game_started, "round_active": round_active, "current_question": current_question, "current_choices": current_choices, "current_round": current_round, "scores": scores, "is_host": is_host, "host_name": host_name})
+    avatar = players[name]["avatar"] if name in players and isinstance(players[name], dict) else None
+    return templates.TemplateResponse("index.html", {"request": request, "name": name, "role": role, "players": players, "game_started": game_started, "round_active": round_active, "current_question": current_question, "current_choices": current_choices, "current_round": current_round, "scores": scores, "is_host": is_host, "host_name": host_name, "avatar": avatar})
 
 @app.post("/answer", response_class=RedirectResponse)
 async def answer(name: str = Form(...), choice: int = Form(...)):
