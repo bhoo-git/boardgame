@@ -22,7 +22,7 @@ random.shuffle(questions)
 
 current_q_index = 0
 score = 0
-TOTAL_QUESTIONS = 10  # Number of questions to ask
+TOTAL_QUESTIONS = 10
 
 def draw_text(text, x, y, font=FONT, color=BLACK):
     surface = font.render(text, True, color)
@@ -46,12 +46,12 @@ def draw_text_wrapped(text, x, y, font=FONT, color=BLACK, max_width=WIDTH - 40, 
         surface = font.render(line, True, color)
         screen.blit(surface, (x, y + i * line_height))
 
-def show_question(q: TriviaQuestion):
+def show_question(q: TriviaQuestion, shuffled_answers):
     screen.fill(WHITE)
     draw_text(f"Question {current_q_index + 1} of {TOTAL_QUESTIONS}", 20, 20, BIG_FONT)
     draw_text_wrapped(q.question, 20, 80)
 
-    for i, ans in enumerate(q.answers):
+    for i, ans in enumerate(shuffled_answers):
         draw_text(f"{i + 1}. {ans}", 40, 180 + i * 50)
 
     draw_text("Press 1, 2, 3... to answer", 20, HEIGHT - 60)
@@ -64,6 +64,15 @@ def show_result():
 
 running = True
 showing_result = False
+shuffled_answers = []
+correct_answer = ""
+
+# Initialize first question
+if questions:
+    q = questions[current_q_index]
+    shuffled_answers = q.answers.copy()
+    random.shuffle(shuffled_answers)
+    correct_answer = q.answers[0]
 
 while running:
     for event in pygame.event.get():
@@ -75,22 +84,24 @@ while running:
                 if event.key == pygame.K_ESCAPE:
                     running = False
             else:
-                # Handle answer keys 1, 2, 3, 4 etc.
                 if pygame.K_1 <= event.key <= pygame.K_9:
                     answer_index = event.key - pygame.K_1
-                    q = questions[current_q_index]
-                    if answer_index < len(q.answers):
-                        if q.answers[answer_index] == q.answers[0]:  # First answer is correct
+                    if answer_index < len(shuffled_answers):
+                        if shuffled_answers[answer_index] == correct_answer:
                             score += 1
                         current_q_index += 1
                         if current_q_index >= TOTAL_QUESTIONS or current_q_index >= len(questions):
                             showing_result = True
+                        else:
+                            q = questions[current_q_index]
+                            shuffled_answers = q.answers.copy()
+                            random.shuffle(shuffled_answers)
+                            correct_answer = q.answers[0]
 
     if showing_result:
         show_result()
     else:
-        q = questions[current_q_index]
-        show_question(q)
+        show_question(questions[current_q_index], shuffled_answers)
 
     pygame.display.flip()
 
