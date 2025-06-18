@@ -1,13 +1,11 @@
-from fastapi import FastAPI, Request, Form, BackgroundTasks, UploadFile
+from fastapi import FastAPI, Request, Form, BackgroundTasks
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import random
-import asyncio
 import time
 import json
 import os
-import glob
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -16,7 +14,9 @@ templates = Jinja2Templates(directory="templates")
 players = {}
 scores = {}
 host_name = None
-# Removed: locations = [ ... ]
+last_question = None
+last_choices = []
+last_answer_index = None
 # Load questions from JSON file
 QUESTIONS_FILE = os.path.join(os.path.dirname(__file__), "questions.json")
 with open(QUESTIONS_FILE, "r") as f:
@@ -33,101 +33,72 @@ MAX_ROUNDS = 5
 
 game_started = False
 
-async def round_timer():
-    global round_active, current_question, current_choices, player_answers, current_round, game_started
-    while game_started and current_round < MAX_ROUNDS:
-        round_active = True
-        player_answers = {}
-        player_answer_times = {}
-        q = random.choice(questions)
-        current_question = q["question"]
-        current_choices = q["choices"]
-        answer_index = q["answer"]
-        start_time = time.time()
-        await asyncio.sleep(ROUND_TIME)
-        # Score answers
-        correct_players = []
-        for name in players:
-            if name in player_answers and player_answers[name] == answer_index:
-                correct_players.append((name, player_answer_times.get(name, float('inf'))))
-        # Sort by answer time (fastest first)
-        correct_players.sort(key=lambda x: x[1])
-        for idx, (name, _) in enumerate(correct_players):
-            # 1 point for correct, +1 for first, +0.5 for second
-            bonus = 0
-            if idx == 0:
-                bonus = 1
-            elif idx == 1:
-                bonus = 0.5
-            scores[name] = scores.get(name, 0) + 1 + bonus
-        round_active = False
-        current_round += 1
-        await asyncio.sleep(3)  # Short pause between rounds
-    game_started = False
-    current_question = None
-    current_choices = []
-    current_round = 0
-
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request, "players": players, "game_started": game_started, "round_active": round_active, "current_question": current_question, "current_choices": current_choices, "current_round": current_round, "scores": scores})
+    return templates.TemplateResponse("index.html", {"request": request, "players": players, "game_started": game_started, "round_active": round_active, "current_question": current_question, "current_choices": current_choices, "current_round": current_round, "scores": scores, "last_question": last_question, "last_choices": last_choices, "last_answer_index": last_answer_index})
 
 @app.post("/join", response_class=RedirectResponse)
 async def join(name: str = Form(...)):
-    global host_name
+    global game_started, scores, current_round, current_question, current_choices, round_active
     if name not in players:
-        players[name] = {"avatar": None}
+        players[name] = {}
         scores[name] = 0
-        if host_name is None:
-            host_name = name  # First player is host
-    else:
-        # If not host, prevent joining again with same name
-        if name != host_name:
-            return RedirectResponse(f"/player/{name}", status_code=302)
-    return RedirectResponse(f"/avatar/{name}", status_code=302)
-
-@app.get("/avatar/{name}", response_class=HTMLResponse)
-async def avatar_select(request: Request, name: str):
-    # Only non-host can pick avatar
-    is_host = (name == host_name)
-    if is_host:
-        return RedirectResponse(f"/player/{name}", status_code=302)
-    avatar_files = [f"avatars/{os.path.basename(f)}" for f in glob.glob(os.path.join("static/avatars", "*.png"))]
-    return templates.TemplateResponse("avatar_select.html", {"request": request, "name": name, "avatars": avatar_files})
-
-@app.post("/avatar/{name}", response_class=RedirectResponse)
-async def avatar_set(name: str = Form(...), avatar: str = Form(...)):
-    if name in players:
-        players[name]["avatar"] = avatar
+    # Start the game automatically if not already started
+    if not game_started:
+        game_started = True
+        scores = {n: 0 for n in players}
+        current_round = 0
+        # Start first question immediately
+        q = random.choice(questions)
+        current_question = q["question"]
+        current_choices = q["choices"]
+        round_active = True
+        player_answers.clear()
+        player_answer_times.clear()
     return RedirectResponse(f"/player/{name}", status_code=302)
 
 @app.get("/player/{name}", response_class=HTMLResponse)
 async def player_page(request: Request, name: str):
     role = players.get(name, {}).get("role", "Not joined") if isinstance(players.get(name), dict) else players.get(name, "Not joined")
-    is_host = (name == host_name)
-    avatar = players[name]["avatar"] if name in players and isinstance(players[name], dict) else None
-    return templates.TemplateResponse("index.html", {"request": request, "name": name, "role": role, "players": players, "game_started": game_started, "round_active": round_active, "current_question": current_question, "current_choices": current_choices, "current_round": current_round, "scores": scores, "is_host": is_host, "host_name": host_name, "avatar": avatar})
+    return templates.TemplateResponse("index.html", {"request": request, "name": name, "role": role, "players": players, "game_started": game_started, "round_active": round_active, "current_question": current_question, "current_choices": current_choices, "current_round": current_round, "scores": scores, "last_question": last_question, "last_choices": last_choices, "last_answer_index": last_answer_index})
 
 @app.post("/answer", response_class=RedirectResponse)
 async def answer(name: str = Form(...), choice: int = Form(...)):
+    global round_active, current_question, current_choices, current_round, game_started, last_question, last_choices, last_answer_index
     if round_active and name in players:
         if name not in player_answers:
             player_answers[name] = choice
             player_answer_times[name] = time.time()
-    return RedirectResponse(f"/player/{name}", status_code=302)
-
-@app.get("/start")
-async def start_game(request: Request, background_tasks: BackgroundTasks, name: str = None):
-    global game_started, scores, current_round
-    # Only host can start
-    if name != host_name:
-        return RedirectResponse("/", status_code=302)
-    if len(players) < 1:
-        return RedirectResponse("/", status_code=302)
-    game_started = True
-    scores = {name: 0 for name in players}
-    current_round = 0
-    background_tasks.add_task(round_timer)
+        # Score answer immediately
+        # Find the current question's answer index
+        answer_index = None
+        for q in questions:
+            if q["question"] == current_question and q["choices"] == current_choices:
+                answer_index = q["answer"]
+                break
+        if answer_index is not None:
+            # Only score if correct
+            if player_answers[name] == answer_index:
+                # Give 1 point for correct
+                scores[name] = scores.get(name, 0) + 1
+            # Store last question and answer for display
+            last_question = current_question
+            last_choices = current_choices
+            last_answer_index = answer_index
+        # Move to next question
+        current_round += 1
+        if current_round < MAX_ROUNDS:
+            q = random.choice(questions)
+            current_question = q["question"]
+            current_choices = q["choices"]
+            round_active = True
+            player_answers.clear()
+            player_answer_times.clear()
+        else:
+            game_started = False
+            current_question = None
+            current_choices = []
+            round_active = False
     return RedirectResponse(f"/player/{name}", status_code=302)
 
 @app.get("/reset")
