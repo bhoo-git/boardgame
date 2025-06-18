@@ -9,6 +9,9 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
+from trivia_machine import load_trivia_questions
+from trivia_machine import TriviaQuestion
+
 import random
 import asyncio
 import time
@@ -26,9 +29,7 @@ templates = Jinja2Templates(directory="templates")
 players: dict[str, str] = {}
 scores:  dict[str, float] = {}
 
-QUESTIONS_FILE = os.path.join(os.path.dirname(__file__), "questions.json")
-with open(QUESTIONS_FILE, "r") as f:
-    questions = json.load(f)
+questions = load_trivia_questions("trivia_machine\\assets\\qs_and_as.json")
 
 current_question: str | None = None
 current_choices:  list[str] = []
