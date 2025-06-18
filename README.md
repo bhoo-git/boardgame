@@ -34,7 +34,9 @@ Make sure Python 3.9+ is installed.
 Then install required packages:
 
 ```bash
-pip install fastapi uvicorn jinja2
+python3 -m venv .venv
+source bin/.venv/activate
+pip install -r requirements.txt
 ```
 
 ### 3. Run the Server
