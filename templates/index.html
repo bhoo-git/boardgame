@@ -1,8 +1,7 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Local Spyfall</title>
+    <title>Local Trivia Game</title>
 </head>
 <body>
     <h1>Welcome to the Game</h1>
@@ -16,17 +15,39 @@
         <h2>Players Joined:</h2>
         <ul>
             {% for p in players %}
-                <li>{{ p }}</li>
+                <li>{{ p }}{% if p == host_name %} (Host){% endif %}</li>
             {% endfor %}
         </ul>
 
-        {% if players|length >= 3 %}
-            <a href="/start"><button>Start Game</button></a>
+        {% if players|length >= 1 and name and is_host %}
+            <a href="/start?name={{ name }}"><button>Start Game</button></a>
+        {% elif players|length >= 1 and name and not is_host %}
+            <p>Waiting for host ({{ host_name }}) to start the game...</p>
         {% endif %}
     {% else %}
         {% if name %}
-            <h2>Hello, {{ name }}</h2>
-            <p><strong>Your Role:</strong> {{ role }}</p>
+            <h2>Hello, {{ name }}{% if is_host %} (Host){% endif %}</h2>
+            <p><strong>Score:</strong> {{ scores[name] if scores and name in scores else 0 }}</p>
+            {% if round_active and current_question %}
+                <h3>Round {{ current_round + 1 }}</h3>
+                <form action="/answer" method="post">
+                    <input type="hidden" name="name" value="{{ name }}">
+                    <p><strong>{{ current_question }}</strong></p>
+                    {% for c in current_choices %}
+                        <input type="radio" name="choice" value="{{ loop.index0 }}" required> {{ c }}<br>
+                    {% endfor %}
+                    <button type="submit">Submit Answer</button>
+                </form>
+            {% elif not round_active and current_question %}
+                <p>Waiting for next round...</p>
+            {% elif not round_active and not current_question and scores %}
+                <h3>Game Over! Final Scores:</h3>
+                <ul>
+                {% for p, s in scores.items() %}
+                    <li>{{ p }}: {{ s }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
         {% else %}
             <p>Game in progress. Please ask the host to reset.</p>
         {% endif %}
