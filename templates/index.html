@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Local Spyfall</title>
+</head>
+<body>
+    <h1>Welcome to the Game</h1>
+
+    {% if not game_started %}
+        <form action="/join" method="post">
+            <input type="text" name="name" placeholder="Enter your name" required>
+            <button type="submit">Join</button>
+        </form>
+
+        <h2>Players Joined:</h2>
+        <ul>
+            {% for p in players %}
+                <li>{{ p }}</li>
+            {% endfor %}
+        </ul>
+
+        {% if players|length >= 3 %}
+            <a href="/start"><button>Start Game</button></a>
+        {% endif %}
+    {% else %}
+        {% if name %}
+            <h2>Hello, {{ name }}</h2>
+            <p><strong>Your Role:</strong> {{ role }}</p>
+        {% else %}
+            <p>Game in progress. Please ask the host to reset.</p>
+        {% endif %}
+    {% endif %}
+
+    <br><br>
+    <a href="/reset"><button>Reset Game</button></a>
+</body>
+</html>
