@@ -6,6 +6,7 @@
 <body>
     <h1>Welcome to the Game</h1>
 
+    {# ---------- LOBBY ---------- #}
     {% if not game_started %}
         <form action="/join" method="post">
             <input type="text" name="name" placeholder="Enter your name" required>
@@ -15,19 +16,18 @@
         <h2>Players Joined:</h2>
         <ul>
             {% for p in players %}
-                <li>{{ p }}{% if p == host_name %} (Host){% endif %}</li>
+                <li>{{ p }}</li>
             {% endfor %}
         </ul>
 
-        {% if players|length >= 1 and name and is_host %}
-            <a href="/start?name={{ name }}"><button>Start Game</button></a>
-        {% elif players|length >= 1 and name and not is_host %}
-            <p>Waiting for host ({{ host_name }}) to start the game...</p>
-        {% endif %}
+        <p>The host will start the game from the admin panel.</p>
+
+    {# ---------- IN-GAME ---------- #}
     {% else %}
         {% if name %}
-            <h2>Hello, {{ name }}{% if is_host %} (Host){% endif %}</h2>
+            <h2>Hello, {{ name }}</h2>
             <p><strong>Score:</strong> {{ scores[name] if scores and name in scores else 0 }}</p>
+
             {% if round_active and current_question %}
                 <h3>Round {{ current_round + 1 }}</h3>
                 <form action="/answer" method="post">
@@ -38,22 +38,24 @@
                     {% endfor %}
                     <button type="submit">Submit Answer</button>
                 </form>
+
             {% elif not round_active and current_question %}
                 <p>Waiting for next round...</p>
+
             {% elif not round_active and not current_question and scores %}
                 <h3>Game Over! Final Scores:</h3>
                 <ul>
-                {% for p, s in scores.items() %}
-                    <li>{{ p }}: {{ s }}</li>
-                {% endfor %}
+                    {% for p, s in scores.items() %}
+                        <li>{{ p }}: {{ s }}</li>
+                    {% endfor %}
                 </ul>
             {% endif %}
+
         {% else %}
-            <p>Game in progress. Please ask the host to reset.</p>
+            <p>Game in progress. Please wait for the next game.</p>
         {% endif %}
     {% endif %}
 
     <br><br>
-    <a href="/reset"><button>Reset Game</button></a>
 </body>
 </html>
