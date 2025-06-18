@@ -28,13 +28,31 @@ def draw_text(text, x, y, font=FONT, color=BLACK):
     surface = font.render(text, True, color)
     screen.blit(surface, (x, y))
 
+def draw_text_wrapped(text, x, y, font=FONT, color=BLACK, max_width=WIDTH - 40, line_height=40):
+    words = text.split(' ')
+    lines = []
+    current_line = ""
+
+    for word in words:
+        test_line = current_line + word + " "
+        if font.size(test_line)[0] <= max_width:
+            current_line = test_line
+        else:
+            lines.append(current_line)
+            current_line = word + " "
+    lines.append(current_line)
+
+    for i, line in enumerate(lines):
+        surface = font.render(line, True, color)
+        screen.blit(surface, (x, y + i * line_height))
+
 def show_question(q: TriviaQuestion):
     screen.fill(WHITE)
     draw_text(f"Question {current_q_index + 1} of {TOTAL_QUESTIONS}", 20, 20, BIG_FONT)
-    draw_text(q.question, 20, 80)
+    draw_text_wrapped(q.question, 20, 80)
 
     for i, ans in enumerate(q.answers):
-        draw_text(f"{i + 1}. {ans}", 40, 140 + i * 50)
+        draw_text(f"{i + 1}. {ans}", 40, 180 + i * 50)
 
     draw_text("Press 1, 2, 3... to answer", 20, HEIGHT - 60)
 
