@@ -1,184 +1,292 @@
 {
-  "topic": "Land Mammals",
-  "questions": [
+  "topics": [
     {
-      "question": "What is the largest land mammal on Earth?",
-      "answers": [
-        "African elephant",
-        "White rhinoceros",
-        "Hippopotamus",
-        "Giraffe"
+      "topic": "Land Mammals",
+      "questions": [
+        {
+          "question": "What is the largest land mammal on Earth?",
+          "answers": [
+            "African elephant",
+            "White rhinoceros",
+            "Hippopotamus",
+            "Giraffe"
+          ]
+        },
+        {
+          "question": "Which land mammal is known for having a pouch to carry its young?",
+          "answers": [
+            "Kangaroo",
+            "Panda",
+            "Otter",
+            "Fox"
+          ]
+        },
+        {
+          "question": "Which mammal is famous for its black and white stripes?",
+          "answers": [
+            "Zebra",
+            "Tiger",
+            "Badger",
+            "Skunk"
+          ]
+        },
+        {
+          "question": "Which mammal is known for its long neck?",
+          "answers": [
+            "Giraffe",
+            "Camel",
+            "Horse",
+            "Antelope"
+          ]
+        },
+        {
+          "question": "Which small mammal can roll into a tight ball for protection?",
+          "answers": [
+            "Hedgehog",
+            "Rabbit",
+            "Beaver",
+            "Porcupine"
+          ]
+        },
+        {
+          "question": "Which bear species is native to North America?",
+          "answers": [
+            "Grizzly bear",
+            "Sun bear",
+            "Spectacled bear",
+            "Sloth bear"
+          ]
+        },
+        {
+          "question": "Which land mammal is the fastest on Earth?",
+          "answers": [
+            "Cheetah",
+            "Lion",
+            "Greyhound",
+            "Leopard"
+          ]
+        },
+        {
+          "question": "Which mammal is known for building dams in rivers?",
+          "answers": [
+            "Beaver",
+            "Otter",
+            "Capybara",
+            "Wombat"
+          ]
+        },
+        {
+          "question": "Which mammal has a long, flexible trunk?",
+          "answers": [
+            "Elephant",
+            "Tapir",
+            "Anteater",
+            "Armadillo"
+          ]
+        },
+        {
+          "question": "Which desert-dwelling mammal has humps to store fat?",
+          "answers": [
+            "Camel",
+            "Llama",
+            "Alpaca",
+            "Donkey"
+          ]
+        },
+        {
+          "question": "Which large land mammal is often found wallowing in mud?",
+          "answers": [
+            "Hippopotamus",
+            "Elephant",
+            "Buffalo",
+            "Warthog"
+          ]
+        },
+        {
+          "question": "Which mammal is known for swinging between trees using its long arms?",
+          "answers": [
+            "Orangutan",
+            "Baboon",
+            "Gibbon",
+            "Chimpanzee"
+          ]
+        },
+        {
+          "question": "Which mammal is sometimes called a 'water horse' due to its amphibious habits?",
+          "answers": [
+            "Hippopotamus",
+            "Capybara",
+            "Otter",
+            "Beaver"
+          ]
+        },
+        {
+          "question": "Which mammal is famous for carrying its home on its back?",
+          "answers": [
+            "Armadillo",
+            "Tortoise",
+            "Snail",
+            "Hermit crab"
+          ]
+        },
+        {
+          "question": "Which carnivorous mammal is often associated with packs and howling at the moon?",
+          "answers": [
+            "Wolf",
+            "Fox",
+            "Coyote",
+            "Lynx"
+          ]
+        },
+        {
+          "question": "Which mammal uses echolocation to navigate in darkness?",
+          "answers": [
+            "Bat",
+            "Mole",
+            "Shrew",
+            "Raccoon"
+          ]
+        },
+        {
+          "question": "Which mammal is the national animal of Australia?",
+          "answers": [
+            "Red kangaroo",
+            "Koala",
+            "Platypus",
+            "Wombat"
+          ]
+        },
+        {
+          "question": "Which mammal is recognized by its large, tusk-like teeth protruding from its mouth?",
+          "answers": [
+            "Walrus",
+            "Elephant seal",
+            "Sea lion",
+            "Manatee"
+          ]
+        },
+        {
+          "question": "Which mammal is known for gliding between trees with skin flaps?",
+          "answers": [
+            "Flying squirrel",
+            "Koala",
+            "Possum",
+            "Lemur"
+          ]
+        },
+        {
+          "question": "Which large mammal has prominent white and black facial markings and eats bamboo?",
+          "answers": [
+            "Giant panda",
+            "Sloth bear",
+            "Sun bear",
+            "Polar bear"
+          ]
+        }
       ]
     },
     {
-      "question": "Which land mammal is known for having a pouch to carry its young?",
-      "answers": [
-        "Kangaroo",
-        "Panda",
-        "Otter",
-        "Fox"
-      ]
-    },
-    {
-      "question": "Which mammal is famous for its black and white stripes?",
-      "answers": [
-        "Zebra",
-        "Tiger",
-        "Badger",
-        "Skunk"
-      ]
-    },
-    {
-      "question": "Which mammal is known for its long neck?",
-      "answers": [
-        "Giraffe",
-        "Camel",
-        "Horse",
-        "Antelope"
-      ]
-    },
-    {
-      "question": "Which small mammal can roll into a tight ball for protection?",
-      "answers": [
-        "Hedgehog",
-        "Rabbit",
-        "Beaver",
-        "Porcupine"
-      ]
-    },
-    {
-      "question": "Which bear species is native to North America?",
-      "answers": [
-        "Grizzly bear",
-        "Sun bear",
-        "Spectacled bear",
-        "Sloth bear"
-      ]
-    },
-    {
-      "question": "Which land mammal is the fastest on Earth?",
-      "answers": [
-        "Cheetah",
-        "Lion",
-        "Greyhound",
-        "Leopard"
-      ]
-    },
-    {
-      "question": "Which mammal is known for building dams in rivers?",
-      "answers": [
-        "Beaver",
-        "Otter",
-        "Capybara",
-        "Wombat"
-      ]
-    },
-    {
-      "question": "Which mammal has a long, flexible trunk?",
-      "answers": [
-        "Elephant",
-        "Tapir",
-        "Anteater",
-        "Armadillo"
-      ]
-    },
-    {
-      "question": "Which desert-dwelling mammal has humps to store fat?",
-      "answers": [
-        "Camel",
-        "Llama",
-        "Alpaca",
-        "Donkey"
-      ]
-    },
-    {
-      "question": "Which large land mammal is often found wallowing in mud?",
-      "answers": [
-        "Hippopotamus",
-        "Elephant",
-        "Buffalo",
-        "Warthog"
-      ]
-    },
-    {
-      "question": "Which mammal is known for swinging between trees using its long arms?",
-      "answers": [
-        "Orangutan",
-        "Baboon",
-        "Gibbon",
-        "Chimpanzee"
-      ]
-    },
-    {
-      "question": "Which mammal is sometimes called a 'water horse' due to its amphibious habits?",
-      "answers": [
-        "Hippopotamus",
-        "Capybara",
-        "Otter",
-        "Beaver"
-      ]
-    },
-    {
-      "question": "Which mammal is famous for carrying its home on its back?",
-      "answers": [
-        "Armadillo",
-        "Tortoise",
-        "Snail",
-        "Hermit crab"
-      ]
-    },
-    {
-      "question": "Which carnivorous mammal is often associated with packs and howling at the moon?",
-      "answers": [
-        "Wolf",
-        "Fox",
-        "Coyote",
-        "Lynx"
-      ]
-    },
-    {
-      "question": "Which mammal uses echolocation to navigate in darkness?",
-      "answers": [
-        "Bat",
-        "Mole",
-        "Shrew",
-        "Raccoon"
-      ]
-    },
-    {
-      "question": "Which mammal is the national animal of Australia?",
-      "answers": [
-        "Red kangaroo",
-        "Koala",
-        "Platypus",
-        "Wombat"
-      ]
-    },
-    {
-      "question": "Which mammal is recognized by its large, tusk-like teeth protruding from its mouth?",
-      "answers": [
-        "Walrus",
-        "Elephant seal",
-        "Sea lion",
-        "Manatee"
-      ]
-    },
-    {
-      "question": "Which mammal is known for gliding between trees with skin flaps?",
-      "answers": [
-        "Flying squirrel",
-        "Koala",
-        "Possum",
-        "Lemur"
-      ]
-    },
-    {
-      "question": "Which large mammal has prominent white and black facial markings and eats bamboo?",
-      "answers": [
-        "Giant panda",
-        "Sloth bear",
-        "Sun bear",
-        "Polar bear"
+      "topic": "Pittsburgh",
+      "questions": [
+        {
+          "question": "What nickname is Pittsburgh known by due to its abundance of bridges?",
+          "answers": [
+            "City of Steel",
+            "City of Bridges",
+            "Steel City",
+            "City of Lights"
+          ]
+        },
+        {
+          "question": "Which famous sandwich was invented in Pittsburgh in the 1930s?",
+          "answers": [
+            "Philly Cheesesteak",
+            "Reuben",
+            "Primanti Bros. Sandwich",
+            "BLT"
+          ]
+        },
+        {
+          "question": "Which Pittsburgh-born artist is celebrated at the largest single-artist museum in North America?",
+          "answers": [
+            "Andy Warhol",
+            "Pablo Picasso",
+            "Vincent van Gogh",
+            "Jackson Pollock"
+          ]
+        },
+        {
+          "question": "Which Pittsburgh sports team was originally called the Pittsburgh Pirates?",
+          "answers": [
+            "Steelers",
+            "Penguins",
+            "Pirates",
+            "Riverhounds"
+          ]
+        },
+        {
+          "question": "What is the name of Pittsburgh's tallest building, located at the University of Pittsburgh?",
+          "answers": [
+            "U.S. Steel Tower",
+            "Cathedral of Learning",
+            "PPG Place",
+            "One PNC Plaza"
+          ]
+        },
+        {
+          "question": "Which river is NOT one of the three that converge at Pittsburgh's Point State Park?",
+          "answers": [
+            "Allegheny",
+            "Monongahela",
+            "Ohio",
+            "Susquehanna"
+          ]
+        },
+        {
+          "question": "Which Pittsburgh museum is known for housing the world's first T. rex fossil?",
+          "answers": [
+            "Carnegie Museum of Natural History",
+            "Andy Warhol Museum",
+            "Mattress Factory",
+            "Heinz History Center"
+          ]
+        },
+        {
+          "question": "Which Pittsburgh neighborhood is home to the steepest street in the U.S., Canton Avenue?",
+          "answers": [
+            "Shadyside",
+            "Beechview",
+            "Squirrel Hill",
+            "Lawrenceville"
+          ]
+        },
+        {
+          "question": "Which Pittsburgh-based company is credited with creating the first-ever night game in Major League Baseball history in 1935?",
+          "answers": [
+            "Heinz",
+            "Westinghouse",
+            "U.S. Steel",
+            "Pittsburgh Pirates"
+          ]
+        },
+        {
+          "question": "Which Pittsburgh sandwich shop is famous for its unique sandwich that includes meat, cheese, coleslaw, and French fries all stuffed between two slices of bread?",
+          "answers": [
+            "Primanti Brothers",
+            "D's Six Pax & Dogz",
+            "The O",
+            "D's Deli"
+          ]
+        },
+        {
+          "question": "Which Pittsburgh bridge is named after a baseball legend who played his entire career with the Pittsburgh Pirates and was killed in a 1972 plane crash?",
+          "answers": [
+            "Roberto Clemente Bridge",
+            "Clemente-Ponce Bridge",
+            "Clemente Memorial Bridge",
+            "Clemente Bridge"
+          ]
+        }
       ]
     }
   ]
